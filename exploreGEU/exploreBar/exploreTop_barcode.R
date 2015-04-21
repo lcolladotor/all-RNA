@@ -5,6 +5,7 @@ library('devtools')
 library('ggbio')
 library('TxDb.Hsapiens.UCSC.hg19.knownGene')
 library('GenomeInfoDb')
+library('derfinder')
 
 ## Load data
 load('/dcs01/ajaffe/Brain/derRuns/railDER/railGEU/CoverageInfo/chr22CovInfo.Rdata')
@@ -27,6 +28,26 @@ regs <- regionMat$chr22$regions
 regs
 length(regs)
 summary(width(regs))
+
+## annotate
+load("/home/epi/ajaffe/GenomicStates/GenomicState.Hsapiens.ensembl.GRCh37.p12.rda")
+gs <- GenomicState.Hsapiens.ensembl.GRCh37.p12$fullGenome
+ensemblAnno <- annotateRegions(regs, gs)
+countTable <- ensemblAnno$countTable
+
+### Exclusively exonic, intronic and intergenic regions
+dim(countTable)
+strict <- rep(NA, 3)
+strict[1] <- mean(countTable[,"exon"] > 0 & countTable[,"intron"] == 0 &
+    countTable[,"intergenic"] == 0) # strict exon
+strict[2] <- mean(countTable[,"intron"] > 0 & countTable[,"exon"] == 0 &
+    countTable[,"intergenic"] == 0) # strict intron
+strict[3] <- mean(countTable[,"intergenic"] > 0 & countTable[,"exon"] == 0 &
+    countTable[,"intron"] == 0) # strict intergenic
+names(strict) <- c('exonic', 'intronic', 'intergenic')
+strict
+## Not strict
+1 - sum(strict)
 
 ## Find and explore top areas
 i <- order(regs$area, decreasing = TRUE)
