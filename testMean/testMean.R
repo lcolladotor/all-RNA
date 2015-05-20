@@ -36,7 +36,7 @@ names(totalMap) <- counts$sample[ match(names(bws), counts$sample) ]
 covBW <- fullCoverage(files = bws, chrs = chrs, mc.cores = 4, totalMapped = totalMap, targetSize = 40e6)
 
 ## Calculate the mean from the coverage available
-meanBW <- lapply(covBW, function(x) { Reduce('+', x) / ncol(x) })
+system.time( meanBW <- lapply(covBW, function(x) { Reduce('+', x) / ncol(x) }) )
 save(meanBW, file = 'meanBW.Rdata')
 rm(covBW)
 
@@ -70,7 +70,7 @@ covBAM <- lapply(chrs, function(chr) {
 names(covBAM) <- chrs
 
 ## Calculate the mean from the coverage available
-meanBAM <- lapply(covBAM, function(x) { Reduce('+', x) / ncol(x) })
+system.time( meanBAM <- lapply(covBAM, function(x) { Reduce('+', x) / ncol(x) }) )
 save(meanBAM, file = 'meanBAM.Rdata')
 rm(covBAM)
 
