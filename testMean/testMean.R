@@ -125,7 +125,7 @@ rm(covBAM)
 
 ## Is the mean from bams and from BigWigs the same?
 identical(meanBAM, meanBW)
-if(!identical(meamBAM, meanBW)) summaryPairs(diffPairs(meanBW, meanBAM))
+if(!identical(meanBAM, meanBW)) summaryPairs(diffPairs(meanBW, meanBAM))
 
 ## What about the medians?
 identical(medianBAM, medianBW)
