@@ -76,7 +76,7 @@ diffPairs <- function(rail, other, index = NULL) {
     return(res)
 }
 
-summaryPairs <- function(diffInfo, tolerance = 1e-04) {
+summaryPairs <- function(diffInfo, tolerance = 1e-03) {
     ## Overall summary of differences
     print(lapply(diffInfo, summary))
     ## Number of bases where methods don't agree

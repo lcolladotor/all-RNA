@@ -13,7 +13,7 @@ date
 mkdir -p logs
 
 # Main script
-R-bioc-devel -e "source('testMean.R', print.eval = TRUE)"
+R-bioc-devel -e "source('testMean.R', echo = TRUE, print.eval = TRUE)"
 
 ## Move log files into the logs directory
 mv testMean20.* logs/
