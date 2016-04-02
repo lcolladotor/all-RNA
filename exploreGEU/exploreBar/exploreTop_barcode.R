@@ -8,11 +8,11 @@ library('GenomeInfoDb')
 library('derfinder')
 
 ## Load data
-load('/dcs01/ajaffe/Brain/derRuns/railDER/railGEU/CoverageInfo/chr22CovInfo.Rdata')
-load('/dcs01/ajaffe/Brain/derRuns/railDER/railGEU/regionMatrix/regionMat-cut5-chr22.Rdata')
+load('/dcl01/lieber/ajaffe/derRuns/railDER/railGEU/CoverageInfo/chr22CovInfo.Rdata')
+load('/dcl01/lieber/ajaffe/derRuns/railDER/railGEU/regionMatrix/regionMat-cut5-chr22.Rdata')
 txdb <- keepSeqlevels(TxDb.Hsapiens.UCSC.hg19.knownGene, 'chr22')
 
-counts <- read.table('/dcs01/ajaffe/Brain/derRuns/railDER/all_of_geuvadis_read_counts_v4.4.2015', header = TRUE, sep = '\t')
+counts <- read.table('/dcl01/lieber/ajaffe/derRuns/railDER/all_of_geuvadis_read_counts_v4.4.2015', header = TRUE, sep = '\t')
 
 print(object.size(chr22CovInfo), units = 'Gb')
 print(object.size(regionMat), units = 'Mb')
@@ -111,7 +111,7 @@ exploreTop <- function(j, saveLocal = FALSE) {
             res <- tracks(p, xlim = window, title = paste('Region', j), xlab = 'Chr22') + theme_bw(base_size = 18) 
         }
         
-        if(saveLocal) pdf(file = paste0('/dcs01/ajaffe/Brain/derRuns/all-RNA/exploreGEU/exploreBar/region', j, '_', adjust, '.pdf'), width = 10)   
+        if(saveLocal) pdf(file = paste0('/dcl01/lieber/ajaffe/derRuns/all-RNA/exploreGEU/exploreBar/region', j, '_', adjust, '.pdf'), width = 10)   
         #paste0('~/region', j, '_', adjust, '.pdf'), width = 10)   
         print(res)
         if(saveLocal) dev.off()
@@ -119,11 +119,11 @@ exploreTop <- function(j, saveLocal = FALSE) {
     return(j)
 }
 
-pdf(file = '/dcs01/ajaffe/Brain/derRuns/all-RNA/exploreGEU/exploreBar/top40Regions_Area.pdf', width = 10)
+pdf(file = '/dcl01/lieber/ajaffe/derRuns/all-RNA/exploreGEU/exploreBar/top40Regions_Area.pdf', width = 10)
 sapply(i[seq_len(40)], exploreTop)
 dev.off()
 
-pdf(file = '/dcs01/ajaffe/Brain/derRuns/all-RNA/exploreGEU/exploreBar/top40Regions_Width_notTop40Area.pdf', width = 10)
+pdf(file = '/dcl01/lieber/ajaffe/derRuns/all-RNA/exploreGEU/exploreBar/top40Regions_Width_notTop40Area.pdf', width = 10)
 sapply(missing.i, exploreTop)
 dev.off()
 
